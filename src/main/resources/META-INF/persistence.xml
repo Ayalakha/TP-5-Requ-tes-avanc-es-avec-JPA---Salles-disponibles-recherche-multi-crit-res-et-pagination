@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- JPA yapılandırma dosyası: kalıcılık birimini (persistence unit) tanımlar -->
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+             http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
+             version="2.2">
+
+    <!-- RESOURCE_LOCAL: işlemler (transaction) elle yönetilir -->
+    <persistence-unit name="SallePU" transaction-type="RESOURCE_LOCAL">
+        <!-- JPA sağlayıcısı olarak Hibernate kullanılır -->
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <!-- Varlık (entity) sınıfları açıkça listelenmelidir -->
+        <class>com.example.model.Salle</class>
+        <class>com.example.model.Reservation</class>
+
+        <properties>
+            <!-- H2 bellek içi veritabanı bağlantı bilgileri -->
+            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test;DB_CLOSE_DELAY=-1"/>
+            <property name="javax.persistence.jdbc.user" value="sa"/>
+            <property name="javax.persistence.jdbc.password" value=""/>
+
+            <!-- Hibernate'e H2 SQL lehçesini kullanmasını söyler -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+            <!-- update: tablolar otomatik olarak oluşturulur / güncellenir -->
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <!-- Üretilen SQL sorgularını konsolda göster (hata ayıklama için) -->
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+        </properties>
+    </persistence-unit>
+</persistence>
